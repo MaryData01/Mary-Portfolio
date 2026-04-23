@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mary Adekanye — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f1a;
+    --surface: #13131f;
+    --border: #1e1e30;
+    --accent: #7c6af7;
+    --accent2: #a78bfa;
+    --accent3: #c4b5fd;
+    --gold: #e8c97a;
+    --text: #e8e6f0;
+    --muted: #6b6880;
+    --muted2: #9994b0;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 60px;
+    backdrop-filter: blur(20px);
+    background: rgba(10,10,15,0.8);
+    border-bottom: 1px solid rgba(124,106,247,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo span { color: var(--accent2); }
+
+  nav ul {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  nav a {
+    color: var(--muted2);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(124,106,247,0.12) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%);
+    bottom: 0;
+    left: 200px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(124,106,247,0.1);
+    border: 1px solid rgba(124,106,247,0.25);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--accent3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent2);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(52px, 7vw, 90px);
+    line-height: 1.0;
+    letter-spacing: -3px;
+    color: var(--white);
+    margin-bottom: 8px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent2);
+  }
+
+  .hero-subtitle {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(24px, 3vw, 36px);
+    color: var(--muted2);
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    color: var(--muted2);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(124,106,247,0.3);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent3);
+  }
+
+  /* ── STATS ── */
+  .stats-bar {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 28px 32px;
+    transition: background 0.2s;
+  }
+
+  .stat:hover { background: var(--bg2); }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    color: var(--white);
+    letter-spacing: -1px;
+    display: block;
+  }
+
+  .stat-num span { color: var(--accent2); }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 56px);
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+  }
+
+  .section-title em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent2);
+  }
+
+  .section-intro {
+    color: var(--muted2);
+    max-width: 500px;
+    margin-bottom: 64px;
+    line-height: 1.8;
+  }
+
+  /* ── ABOUT ── */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted2);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .about-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .tool-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--muted2);
+    transition: all 0.2s;
+  }
+
+  .tool-chip:hover {
+    border-color: rgba(124,106,247,0.3);
+    color: var(--accent3);
+  }
+
+  .tool-chip strong {
+    display: block;
+    color: var(--text);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+
+  .about-highlight {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 32px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .highlight-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .highlight-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .hi-icon {
+    width: 32px; height: 32px;
+    background: rgba(124,106,247,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .hi-text strong { display: block; color: var(--text); font-size: 14px; margin-bottom: 2px; }
+  .hi-text span { color: var(--muted); font-size: 12px; }
+
+  /* ── PROJECTS ── */
+  #work {
+    background: var(--bg2);
+    max-width: 100%;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  #work .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 60px;
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 40px;
+    align-items: start;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .project:last-child { border-bottom: none; }
+
+  .project:hover .project-num { color: var(--accent2); }
+
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    color: var(--border);
+    letter-spacing: -2px;
+    line-height: 1;
+    transition: color 0.2s;
+    padding-top: 4px;
+  }
+
+  .project-body {}
+
+  .project-category {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    color: var(--muted2);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    background: rgba(124,106,247,0.08);
+    border: 1px solid rgba(124,106,247,0.2);
+    color: var(--accent3);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    align-self: center;
+  }
+
+  .project-link:hover {
+    border-color: var(--accent);
+    color: var(--accent3);
+  }
+
+  /* ── SKILLS ── */
+  #skills .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .skill-card:hover { border-color: rgba(124,106,247,0.3); transform: translateY(-4px); }
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .skill-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .skill-items {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-item {
+    font-size: 11px;
+    background: rgba(124,106,247,0.06);
+    border: 1px solid rgba(124,106,247,0.15);
+    color: var(--muted2);
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--bg2);
+    max-width: 100%;
+    border-top: 1px solid var(--border);
+  }
+
+  #contact .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-left .big-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(40px, 5vw, 64px);
+    color: var(--white);
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .contact-left .big-text em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent2);
+  }
+
+  .contact-left p {
+    color: var(--muted2);
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--text);
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: rgba(124,106,247,0.3);
+    background: rgba(124,106,247,0.05);
+  }
+
+  .cl-icon {
+    width: 36px; height: 36px;
+    background: rgba(124,106,247,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .cl-text strong { display: block; font-size: 13px; color: var(--text); }
+  .cl-text span { font-size: 12px; color: var(--muted); }
+
+  .contact-right {
+    padding-top: 12px;
+  }
+
+  .availability-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 24px;
+  }
+
+  .avail-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .avail-dot::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .avail-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .avail-desc {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .avail-btn {
+    display: block;
+    text-align: center;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .avail-btn:hover {
+    background: var(--accent2);
+    box-shadow: 0 8px 24px rgba(124,106,247,0.3);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--muted2); text-decoration: none; }
+  footer a:hover { color: var(--accent3); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── DIVIDER LINE ── */
+  .full-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    nav ul { display: none; }
+    #hero { padding: 100px 24px 60px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 70px 24px; }
+    #about .about-grid { grid-template-columns: 1fr; }
+    #work .inner { padding: 70px 24px; }
+    .project { grid-template-columns: 50px 1fr; }
+    .project-link { display: none; }
+    #skills .skills-grid { grid-template-columns: 1fr; }
+    #contact .inner { padding: 70px 24px; grid-template-columns: 1fr; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Mary<span>.</span></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+
+    <div class="hero-tag">Available for remote roles</div>
+
+    <h1>Mary <em>Adekanye</em></h1>
+    <div class="hero-subtitle">Data Analyst — Akure, Nigeria</div>
+
+    <p class="hero-desc">
+      I turn messy, complex data into stories that drive real decisions.
+      SQL, Python, Power BI — I've used all three to build dashboards,
+      detect fraud, and predict churn for financial and fintech datasets.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">View My Work →</a>
+      <a href="https://github.com/MaryData01" target="_blank" class="btn-ghost">GitHub ↗</a>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-num">4<span>+</span></span>
+        <span class="stat-label">Years Analytics Practice</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Live Projects</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Core Tools</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100<span>%</span></span>
+        <span class="stat-label">Remote Ready</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2 class="section-title">The analyst <em>behind</em> the data</h2>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm Mary — a data analyst based in Akure, Nigeria, with <strong>4+ years of hands-on analytical practice</strong> across financial data, transaction monitoring, fraud detection, and predictive modeling.
+      </p>
+      <p>
+        My work lives at the intersection of <strong>finance and data</strong>. I've built bank transaction dashboards that simulate executive-level KPI reporting, written SQL scripts that flag fraudulent credit card activity, and trained machine learning models that predict customer churn with measurable accuracy.
+      </p>
+      <p>
+        I'm driven by a genuine curiosity about <strong>how money moves</strong> — how patterns in transaction data reveal risk, opportunity, and behavior. Every project I build teaches me something new about that.
+      </p>
+      <p>
+        Currently seeking <strong>fully remote data analyst roles</strong> where I can contribute real analytical value from day one.
+      </p>
+
+      <div class="about-tools">
+        <div class="tool-chip"><strong>SQL</strong>Joins · Aggregations · Anomaly Detection</div>
+        <div class="tool-chip"><strong>Python</strong>Pandas · Matplotlib · Scikit-learn</div>
+        <div class="tool-chip"><strong>Power BI</strong>Dashboards · DAX · Data Modeling</div>
+        <div class="tool-chip"><strong>Excel</strong>Pivot Tables · VLOOKUP · Cleaning</div>
+      </div>
+    </div>
+
+    <div class="about-highlight reveal">
+      <div class="highlight-title">Quick Profile</div>
+
+      <div class="highlight-item">
+        <div class="hi-icon">📍</div>
+        <div class="hi-text">
+          <strong>Location</strong>
+          <span>Akure, Ondo State, Nigeria</span>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="hi-icon">⚡</div>
+        <div class="hi-text">
+          <strong>Availability</strong>
+          <span>Immediate · Fully Remote</span>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="hi-icon">🎯</div>
+        <div class="hi-text">
+          <strong>Focus Area</strong>
+          <span>Financial Data · Fraud Analysis · BI Reporting</span>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="hi-icon">🌍</div>
+        <div class="hi-text">
+          <strong>Timezone</strong>
+          <span>WAT (UTC+1) · Flexible hours</span>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="hi-icon">💬</div>
+        <div class="hi-text">
+          <strong>Language</strong>
+          <span>English — Professional Fluency</span>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="hi-icon">📧</div>
+        <div class="hi-text">
+          <strong>Email</strong>
+          <span>adekanyemary209@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- WORK -->
+<div id="work">
+  <div class="inner">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">The work that <em>built</em> the craft</h2>
+    <p class="section-intro">Four projects. Real datasets. Every one built end-to-end — from raw data to actionable insight.</p>
+
+    <!-- Project 1 -->
+    <div class="project reveal">
+      <div class="project-num">01</div>
+      <div class="project-body">
+        <div class="project-category">SQL · Power BI · Banking</div>
+        <div class="project-title">Bank Transaction Revenue Monitoring</div>
+        <p class="project-desc">
+          Designed a relational database schema to store and classify bank transactions by channel, type, and customer segment. Wrote SQL queries to compute revenue by channel, transaction volume, average ticket size, and month-over-month growth. Built an interactive Power BI dashboard with KPI cards and trend charts — simulating executive-level performance reporting for a retail bank.
+        </p>
+        <div class="project-tags">
+          <span class="tag">SQL</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Database Design</span>
+          <span class="tag">KPI Reporting</span>
+          <span class="tag">Banking Data</span>
+        </div>
+      </div>
+      <a href="https://github.com/MaryData01/Bank-Transaction-Revenue-Monitoring" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project reveal">
+      <div class="project-num">02</div>
+      <div class="project-body">
+        <div class="project-category">Python · Pandas · Data Visualization</div>
+        <div class="project-title">Fintech Transaction Analysis</div>
+        <p class="project-desc">
+          Cleaned and preprocessed a raw fintech dataset in Python — resolving duplicates, nulls, and format inconsistencies. Performed exploratory data analysis to surface behavioral patterns across customer segments and time periods. Created visualizations including bar charts, heatmaps, and time-series plots to communicate insights clearly to non-technical audiences.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">EDA</span>
+          <span class="tag">Fintech</span>
+        </div>
+      </div>
+      <a href="https://github.com/MaryData01/fintech-transactions-analysis" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project reveal">
+      <div class="project-num">03</div>
+      <div class="project-body">
+        <div class="project-category">SQL · Risk Analysis · Pattern Detection</div>
+        <div class="project-title">Credit Card Fraud Detection</div>
+        <p class="project-desc">
+          Wrote SQL scripts to investigate large credit card transaction datasets and flag unusual patterns — including velocity checks, geo-anomalies, and statistical outliers. Structured queries for automated pattern filtering across large datasets. Summarized high-risk cases into a compliance-ready report bridging raw query output and actionable security intelligence.
+        </p>
+        <div class="project-tags">
+          <span class="tag">SQL</span>
+          <span class="tag">Fraud Detection</span>
+          <span class="tag">Anomaly Analysis</span>
+          <span class="tag">Risk Reporting</span>
+        </div>
+      </div>
+      <a href="https://github.com/MaryData01/Credit-Card-Fraud-Analysis-SQL-Project-" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project reveal">
+      <div class="project-num">04</div>
+      <div class="project-body">
+        <div class="project-category">Python · Machine Learning · Predictive Modeling</div>
+        <div class="project-title">Customer Churn Prediction</div>
+        <p class="project-desc">
+          Built classification models — Logistic Regression and Decision Tree — to predict customer churn probability from behavioral data. Evaluated model performance using accuracy, precision, recall, and F1-score. Went beyond the model: interpreted feature importance and translated findings into actionable business recommendations for retention strategy.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">ML Modeling</span>
+          <span class="tag">Feature Analysis</span>
+          <span class="tag">Pandas</span>
+        </div>
+      </div>
+      <a href="https://github.com/MaryData01/Customer-Churn-Prediction" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title">What I <em>bring</em> to the table</h2>
+  <p class="section-intro">Not buzzwords — the actual tools and thinking behind every project.</p>
+
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <span class="skill-icon">🔍</span>
+      <div class="skill-name">SQL & Database Analysis</div>
+      <p class="skill-desc">Writing optimized queries to extract insights from complex, large-scale transaction datasets.</p>
+      <div class="skill-items">
+        <span class="skill-item">Joins</span>
+        <span class="skill-item">Aggregations</span>
+        <span class="skill-item">Subqueries</span>
+        <span class="skill-item">Window Functions</span>
+        <span class="skill-item">Anomaly Detection</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🐍</span>
+      <div class="skill-name">Python for Data</div>
+      <p class="skill-desc">End-to-end data workflows — cleaning, analysis, visualization, and predictive modeling.</p>
+      <div class="skill-items">
+        <span class="skill-item">Pandas</span>
+        <span class="skill-item">Matplotlib</span>
+        <span class="skill-item">Scikit-learn</span>
+        <span class="skill-item">Seaborn</span>
+        <span class="skill-item">EDA</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">📊</span>
+      <div class="skill-name">Power BI & Visualization</div>
+      <p class="skill-desc">Turning raw data into executive-ready dashboards that non-technical stakeholders actually use.</p>
+      <div class="skill-items">
+        <span class="skill-item">Dashboards</span>
+        <span class="skill-item">DAX</span>
+        <span class="skill-item">Data Modeling</span>
+        <span class="skill-item">KPI Design</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">⚠️</span>
+      <div class="skill-name">Risk & Fraud Analysis</div>
+      <p class="skill-desc">Pattern detection, anomaly identification, and structured reporting in financial data contexts.</p>
+      <div class="skill-items">
+        <span class="skill-item">Fraud Detection</span>
+        <span class="skill-item">Pattern Recognition</span>
+        <span class="skill-item">Risk Documentation</span>
+        <span class="skill-item">Root Cause Analysis</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🤖</span>
+      <div class="skill-name">Machine Learning</div>
+      <p class="skill-desc">Building, evaluating, and interpreting classification models for real business outcomes.</p>
+      <div class="skill-items">
+        <span class="skill-item">Logistic Regression</span>
+        <span class="skill-item">Decision Trees</span>
+        <span class="skill-item">Model Evaluation</span>
+        <span class="skill-item">Feature Importance</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">📋</span>
+      <div class="skill-name">Reporting & Documentation</div>
+      <p class="skill-desc">Clear, structured analytical reports and data stories built for both technical and non-technical audiences.</p>
+      <div class="skill-items">
+        <span class="skill-item">Excel</span>
+        <span class="skill-item">Google Sheets</span>
+        <span class="skill-item">Data Storytelling</span>
+        <span class="skill-item">Stakeholder Comms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="inner">
+    <div class="contact-left reveal">
+      <div class="section-label">Contact</div>
+      <div class="big-text">Let's build <em>something</em> with data.</div>
+      <p>
+        Open to fully remote data analyst roles, freelance analytical projects, and any opportunity where clean data thinking makes a real difference. I respond promptly and love a good brief.
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:adekanyemary209@gmail.com" class="contact-link">
+          <div class="cl-icon">✉️</div>
+          <div class="cl-text">
+            <strong>Email</strong>
+            <span>adekanyemary209@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://github.com/MaryData01" target="_blank" class="contact-link">
+          <div class="cl-icon">⌨️</div>
+          <div class="cl-text">
+            <strong>GitHub</strong>
+            <span>github.com/MaryData01</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/mary-adekanye-2220a7241" target="_blank" class="contact-link">
+          <div class="cl-icon">💼</div>
+          <div class="cl-text">
+            <strong>LinkedIn</strong>
+            <span>mary-adekanye-2220a7241</span>
+          </div>
+        </a>
+        <a href="tel:+2348068627980" class="contact-link">
+          <div class="cl-icon">📱</div>
+          <div class="cl-text">
+            <strong>Phone / WhatsApp</strong>
+            <span>+234 806 862 7980</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-right reveal">
+      <div class="availability-card">
+        <div class="avail-dot">Available Now</div>
+        <div class="avail-title">Ready for Remote Work</div>
+        <p class="avail-desc">
+          Available immediately for fully remote positions. Comfortable overlapping with EST, CET, or WAT timezones. Fast communicator, self-directed, and deadline-driven.
+        </p>
+        <a href="mailto:adekanyemary209@gmail.com" class="avail-btn">Send Me a Message →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Adekanye Mary Adeyinka · Data Analyst · Akure, Nigeria</span>
+  <span>Built with HTML/CSS · Hosted on <a href="https://github.com/MaryData01" target="_blank">GitHub Pages</a></span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Active nav
+  const sections = document.querySelectorAll('section, [id]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent3)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
